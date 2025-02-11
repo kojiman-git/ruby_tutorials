@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  ruby:
+    build: .
+    volumes:
+      - ".:/usr/src/app"  # 現在のディレクトリをコンテナ内の作業ディレクトリにマウント
+    tty: true  # コンテナをインタラクティブモードで起動
