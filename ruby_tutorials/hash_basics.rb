@@ -62,3 +62,22 @@ puts "Name: #{name}, Age: #{age}" # => "Name: Alice, Age: 26"
 empty_hash = {}
 puts empty_hash.empty? # => true
 puts hash.empty? # => false
+
+# ハッシュの展開 (スプラット演算子 **)
+
+# 1. ハッシュの展開でマージ
+hash1 = { name: "Alice", age: 25 }
+hash2 = { city: "Tokyo", country: "Japan" }
+
+merged_hash = { **hash1, **hash2 }
+puts "Merged hash: #{merged_hash.inspect}" 
+#=> {:name=>"Alice", :age=>25, :city=>"Tokyo", :country=>"Japan"}
+
+# 2. ハッシュを引数として展開
+def print_user_info(name:, age:, city:)
+  "Name: #{name}, Age: #{age}, City: #{city}"
+end
+
+user_info = { name: "Bob", age: 30, city: "Osaka" }
+puts print_user_info(**user_info)
+#=> "Name: Bob, Age: 30, City: Osaka"
