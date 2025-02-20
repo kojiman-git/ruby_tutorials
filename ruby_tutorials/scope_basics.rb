@@ -56,6 +56,38 @@ puts another_instance.show_name
 # => インスタンス変数 @name の値: Python
 
 # ----------------------------------------
+# クラスインスタンス変数
+# ----------------------------------------
+# - クラスに属するが、クラス変数とは異なり継承されない。
+# - `@` をプレフィックスとして宣言する。
+# - 各クラスごとに独立したデータを持つ。
+# - インスタンス変数と似ているが、インスタンスではなくクラスに属する。
+
+class ClassInstanceScopeExample
+  @count = 0  # クラスインスタンス変数を定義
+
+  def self.increment
+    @count += 1
+  end
+
+  def self.show_count
+    "クラスインスタンス変数 @count の値: #{@count}"
+  end
+end
+
+puts ClassInstanceScopeExample.show_count  # => クラスインスタンス変数 @count の値: 0
+ClassInstanceScopeExample.increment
+puts ClassInstanceScopeExample.show_count  # => クラスインスタンス変数 @count の値: 1
+
+# クラスインスタンス変数は継承されない
+class SubClassInstance < ClassInstanceScopeExample; end
+
+puts SubClassInstance.show_count  # => クラスインスタンス変数 @count の値: （nil もしくはエラー）
+
+# クラス変数（@@count）はサブクラスに共有されるが、
+# クラスインスタンス変数（@count）は継承されず、サブクラスで独立する。
+
+# ----------------------------------------
 # クラス変数
 # ----------------------------------------
 # - クラス全体で共有されるデータ。

@@ -21,6 +21,33 @@ puts person.introduce
 # => 名前はAlice、年齢は30歳です。
 
 # ----------------------------------------
+# クラスインスタンス変数
+# ----------------------------------------
+# - クラス自身が保持するデータ。
+# - `@`をプレフィックスとして宣言するが、インスタンス変数とは異なり、
+#   クラスレベルでのみアクセスできる。
+# クラス構文直下とクラス変数の中で@をつけるとクラスインスタンス変数になる
+
+class UniqueCounter
+  @count = 0 # クラスインスタンス変数として定義
+
+  def self.increment
+    # クラスインスタンス変数を1増やす
+    @count += 1
+  end
+
+  def self.count
+    # 現在のクラスインスタンス変数の値を返す
+    @count
+  end
+end
+
+UniqueCounter.increment
+UniqueCounter.increment
+puts UniqueCounter.count
+# => 2
+
+# ----------------------------------------
 # クラス変数
 # ----------------------------------------
 # - クラス全体で共有されるデータ。
@@ -44,6 +71,42 @@ Counter.increment
 Counter.increment
 puts Counter.count
 # => 2
+
+# ----------------------------------------
+# クラス変数とクラスインスタンス変数の違い
+# ----------------------------------------
+
+class Parent
+  @@class_variable = "親クラスのクラス変数"
+  @class_instance_variable = "親クラスのクラスインスタンス変数"
+
+  def self.show_variables
+    {
+      class_variable: @@class_variable,               # クラス変数
+      class_instance_variable: @class_instance_variable # クラスインスタンス変数
+    }
+  end
+end
+
+class Child < Parent
+  @class_instance_variable = "子クラスのクラスインスタンス変数"
+end
+
+# 親クラスの変数を表示
+puts "親クラスの変数:"
+puts Parent.show_variables
+# => {:class_variable=>"親クラスのクラス変数", :class_instance_variable=>"親クラスのクラスインスタンス変数"}
+
+# 子クラスの変数を表示
+puts "子クラスの変数:"
+puts Child.show_variables
+# => {:class_variable=>"親クラスのクラス変数", :class_instance_variable=>"子クラスのクラスインスタンス変数"}
+
+# ----------------------------------------
+# 違いのポイント
+# ----------------------------------------
+# - クラス変数（@@class_variable）は、親クラスと子クラスで共有される。
+# - クラスインスタンス変数（@class_instance_variable）は、クラスごとに独立している。
 
 # ----------------------------------------
 # グローバル変数
