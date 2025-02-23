@@ -136,6 +136,25 @@ child = Child.new
 puts child.greet
 # => "Hello from Parent and Hello from Child"
 
+# `super`を使用したオーバーライド(引数を利用する方法)
+class Parent
+  def greet(name)
+    puts "Hello, #{name}!"
+  end
+end
+
+class Child < Parent
+  def greet(name)
+    puts "Child says:"
+    super("Bob") # 明示的に "Bob" を渡す
+  end
+end
+
+child = Child.new
+child.greet("Alice")
+# => HChild says:
+#    Hello, Bob!
+
 # ----------------------------------------
 # リーダーメソッド、ライターメソッド、アクセサーメソッド
 # ----------------------------------------
